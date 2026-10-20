@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Syntax-check extension scripts
+        run: for f in content.js background.js popup.js; do node --check "$f"; done
+
+      - name: Validate manifest and referenced files
+        run: node scripts/check-manifest.mjs
+
+      - name: Package extension
+        run: sh scripts/package.sh
+
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: mdify-extension
+          path: dist/*.zip

@@ -1,0 +1,93 @@
+{
+  "manifest_version": 3,
+  "name": "MDify - Markdown Viewer",
+  "version": "1.0.0",
+  "description": "Renders Markdown (.md) files opened in the browser as a formatted preview instead of plain text.",
+  "homepage_url": "https://github.com/L337C0D3R/MDify",
+  "minimum_chrome_version": "128",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "MDify",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "permissions": [
+    "storage",
+    "declarativeNetRequest",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "markdown_as_text",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "file:///*.md",
+        "file:///*.MD",
+        "file:///*.markdown",
+        "file:///*.mdown",
+        "file:///*.mkd",
+        "file:///*.mkdn",
+        "*://*/*.md",
+        "*://*/*.md?*",
+        "*://*/*.MD",
+        "*://*/*.MD?*",
+        "*://*/*.markdown",
+        "*://*/*.markdown?*",
+        "*://*/*.mdown",
+        "*://*/*.mkd",
+        "*://*/*.mkdn"
+      ],
+      "js": [
+        "lib/marked.min.js",
+        "lib/marked-footnote.umd.js",
+        "lib/katex/katex.min.js",
+        "lib/marked-katex.umd.js",
+        "lib/emoji-map.js",
+        "lib/purify.min.js",
+        "lib/highlight.min.js",
+        "lib/hljs-extra.js",
+        "content.js"
+      ],
+      "css": [
+        "viewer.css"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "lib/github-markdown-light.css",
+        "lib/github-markdown-dark.css",
+        "lib/hljs-github.css",
+        "lib/hljs-github-dark.css",
+        "lib/katex/katex.min.css",
+        "lib/katex/fonts/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+# Files and folders that go into the store/release zip, relative to the repo root.
+manifest.json
+background.js
+content.js
+viewer.css
+rules.json
+popup.html
+popup.js
+icons
+lib
+LICENSE
+THIRD_PARTY_NOTICES.md

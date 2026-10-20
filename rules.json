@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "responseHeaders": [
+        { "header": "content-type", "operation": "set", "value": "text/plain; charset=utf-8" },
+        { "header": "content-disposition", "operation": "remove" }
+      ]
+    },
+    "condition": {
+      "regexFilter": "^https?://[^?#]*\\.(md|markdown|mdown|mkd|mkdn)([?#].*)?$",
+      "isUrlFilterCaseSensitive": false,
+      "resourceTypes": ["main_frame"],
+      "responseHeaders": [
+        { "header": "content-type", "values": ["text/markdown*", "text/x-markdown*", "application/octet-stream*"] }
+      ]
+    }
+  }
+]
